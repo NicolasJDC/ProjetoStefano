@@ -60,4 +60,4 @@ Os links de WhatsApp, Instagram, YouTube e Kiwify estão centralizados em `src/l
 
 ## Publicação
 
-Execute `npm run build`. Os artefatos de produção são gerados em `.output/`, de acordo com a configuração do TanStack Start.
+Execute `npm run build`. Os artefatos de produção são gerados em `dist/`.
