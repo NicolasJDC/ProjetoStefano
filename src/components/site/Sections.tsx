@@ -1,7 +1,8 @@
 import {
   apexArt,
   apexPhoto,
-  bookCover,
+  bookPhoto,
+  bookPromo,
   communityPhoto,
   cuttingPhoto,
   gardenLogo,
@@ -393,46 +394,96 @@ export function Garden() {
 
 export function Livro() {
   return (
-    <section id="livro" className="relative scroll-mt-24 overflow-hidden py-28 md:py-40">
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-16 px-6 lg:grid-cols-2 lg:gap-24">
-        <Reveal className="flex justify-center lg:justify-start">
-          <div className="book-cover w-full max-w-[300px] -rotate-2 overflow-hidden rounded-r-md rounded-l-sm transition-transform duration-700 ease-out hover:rotate-0 md:max-w-[340px]">
+    <section
+      id="livro"
+      className="book-section relative scroll-mt-24 overflow-hidden py-28 md:py-40"
+    >
+      <div
+        className="book-promo-portrait pointer-events-none absolute bottom-0 right-0 hidden h-[78%] w-[25%] overflow-hidden opacity-25 lg:block"
+        aria-hidden="true"
+      >
+        <img
+          src={bookPromo}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover object-[82%_18%]"
+        />
+      </div>
+      <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 lg:grid-cols-12 lg:gap-16">
+        <Reveal className="lg:col-span-7">
+          <figure className="book-photo-frame relative overflow-hidden">
             <img
-              src={bookCover}
-              alt="Capa do livro Do Grifo à Navalha, de Stefano Chaves"
+              src={bookPhoto}
+              alt="Três exemplares físicos do livro Do Grifo à Navalha, de Stefano Chaves"
               loading="lazy"
               decoding="async"
-              className="aspect-[3/4.3] w-full object-cover"
+              className="aspect-[5/4] w-full object-cover object-center transition-transform duration-700 ease-out hover:scale-[1.02]"
             />
-          </div>
+            <figcaption className="absolute bottom-0 left-0 bg-[#120f0b]/85 px-5 py-3 text-[10px] font-bold uppercase tracking-[0.22em] text-[#efe1bf] backdrop-blur-sm">
+              Do Grifo à Navalha
+            </figcaption>
+          </figure>
         </Reveal>
-        <div>
+
+        <div className="lg:col-span-5">
           <Reveal>
-            <Label>Livro</Label>
+            <div className="flex items-center gap-3">
+              <span className="h-px w-10 bg-[#b89154]" aria-hidden="true" />
+              <span className="text-[11px] font-bold uppercase tracking-[0.34em] text-[#d7b776]">
+                Livro
+              </span>
+            </div>
           </Reveal>
           <Reveal delay={100}>
-            <h2 className={`${H2} mt-8`}>
-              Do grifo
-              <br />à navalha<span className="text-electric">.</span>
+            <h2 className="mt-8 font-display text-[clamp(2.2rem,4.6vw,4rem)] font-bold uppercase leading-[1.02] tracking-tight text-[#f5ecd7]">
+              Do grifo <br /> à navalha<span className="text-[#d4a85e]">.</span>
             </h2>
           </Reveal>
           <Reveal delay={180}>
-            <p className="mt-6 font-display text-lg font-semibold uppercase tracking-[0.14em] text-foreground md:text-xl">
-              A história de um sonhador.
+            <p className="mt-6 font-display text-lg font-semibold uppercase tracking-[0.1em] text-[#e7d5ac] md:text-xl">
+              Uma história sobre cair, mudar e continuar.
             </p>
           </Reveal>
           <Reveal delay={240}>
-            <p className="mt-6 max-w-lg leading-relaxed text-muted-foreground">
-              Uma trajetória de escolhas, quedas, aprendizado e persistência transformada em
-              história.
+            <p className="mt-6 max-w-lg leading-relaxed text-[#d4c5a7]">
+              Histórias reais, viradas de chave, reflexões e uma mensagem para quem ainda acredita
+              que pode construir algo diferente.
             </p>
           </Reveal>
-          <Reveal delay={320}>
-            <a href={LINKS.livro} {...EXTERNAL} className="btn-primary mt-10">
+          <Reveal delay={300}>
+            <blockquote className="mt-8 border-l border-[#b89154] pl-5 font-display text-xl font-medium leading-snug text-[#f5ecd7] md:text-2xl">
+              “Escrevi esse livro com a alma.”
+            </blockquote>
+          </Reveal>
+          <Reveal delay={360}>
+            <a href={LINKS.livro} {...EXTERNAL} className="book-cta mt-10">
               Conhecer o livro
+              <ArrowIcon />
             </a>
           </Reveal>
         </div>
+
+        <Reveal delay={220} className="border-t border-[#b89154]/35 pt-8 lg:col-span-12 lg:mt-4">
+          <ul className="grid gap-x-7 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              "Histórias reais e intensas",
+              "Superações e viradas de chave",
+              "Reflexões ao final de cada capítulo",
+              "Inspiração para continuar",
+            ].map((item, index) => (
+              <li
+                key={item}
+                className="flex items-start gap-3 text-sm leading-relaxed text-[#d4c5a7]"
+              >
+                <span className="mt-0.5 font-display text-xs font-bold text-[#d4a85e]">
+                  0{index + 1}
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </Reveal>
       </div>
     </section>
   );

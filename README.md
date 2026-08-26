@@ -60,4 +60,14 @@ Os links de WhatsApp, Instagram, YouTube e Kiwify estão centralizados em `src/l
 
 ## Publicação
 
-Execute `npm run build`. Os artefatos de produção são gerados em `dist/`.
+Execute `npm run build`. O projeto prepara automaticamente a saída compatível com a Vercel em `.vercel/output` (diretório ignorado pelo Git).
+
+## Domínio e SEO
+
+Enquanto o domínio próprio não estiver ativo, os metadados usam `https://stefanochaves.vercel.app` para que os previews de compartilhamento continuem funcionando. Quando `stefanochaves.com.br` estiver configurado na Vercel, defina a variável de ambiente abaixo nos ambientes de produção e preview:
+
+```bash
+VITE_SITE_URL=https://stefanochaves.com.br
+```
+
+Ela atualiza canonical, Open Graph, Twitter Card e os dados estruturados sem alteração de código.

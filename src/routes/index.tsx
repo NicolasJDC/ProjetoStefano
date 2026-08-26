@@ -14,31 +14,41 @@ import {
   Trajetoria,
 } from "@/components/site/Sections";
 import { LINKS } from "@/lib/links";
+import { SITE_DESCRIPTION, SITE_URL } from "@/lib/site";
+
+const TITLE = "Stefano Chaves | Barbeiro, Educador e Empreendedor";
+const OG_IMAGE = `${SITE_URL}/stefano-chaves-og.jpg`;
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Stefano Chaves | Barbeiro, Educador e Empreendedor" },
+      { title: TITLE },
       {
         name: "description",
-        content:
-          "Conheça Stefano Chaves, sua trajetória na barbearia, projetos, conteúdos, Apex Barber, livro e atuação na formação de novos profissionais.",
+        content: SITE_DESCRIPTION,
       },
       {
         property: "og:title",
-        content: "Stefano Chaves | Barbeiro, Educador e Empreendedor",
+        content: TITLE,
       },
       {
         property: "og:description",
-        content:
-          "Conheça Stefano Chaves, sua trajetória na barbearia, projetos, conteúdos, Apex Barber, livro e atuação na formação de novos profissionais.",
+        content: SITE_DESCRIPTION,
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
+      { property: "og:url", content: SITE_URL },
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "Stefano Chaves — Barbeiro, Educador e Empreendedor" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: TITLE },
+      { name: "twitter:description", content: SITE_DESCRIPTION },
+      { name: "twitter:image", content: OG_IMAGE },
+      { name: "twitter:image:alt", content: "Stefano Chaves, Barbeiro, Educador e Empreendedor" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [{ rel: "canonical", href: SITE_URL }],
     scripts: [
       {
         type: "application/ld+json",

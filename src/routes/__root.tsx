@@ -10,6 +10,7 @@ import {
 import type { ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import { SITE_DESCRIPTION } from "../lib/site";
 
 function NotFoundComponent() {
   return (
@@ -76,19 +77,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Stefano Chaves | Barbeiro, Educador e Empreendedor" },
       {
         name: "description",
-        content:
-          "Conheça Stefano Chaves, sua trajetória na barbearia, projetos, conteúdos, Apex Barber, livro e atuação na formação de novos profissionais.",
+        content: SITE_DESCRIPTION,
       },
       { property: "og:site_name", content: "Stefano Chaves" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/garden-for-men.webp", type: "image/webp" },
+      { rel: "icon", href: "/stefano-chaves-favicon.png", type: "image/png", sizes: "128x128" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       {
         rel: "preconnect",
