@@ -219,11 +219,87 @@
   pointer-events: none;
   background:
     radial-gradient(
-      ellipse 52% 58% at 74% 46%,
-      color-mix(in oklab, var(--electric) 13%, transparent),
-      transparent 68%
+      ellipse 44% 70% at 72% 42%,
+      color-mix(in oklab, var(--electric) 20%, transparent),
+      transparent 66%
     ),
-    radial-gradient(ellipse 42% 55% at 72% 52%, oklch(0.35 0.03 258 / 0.4), transparent 70%);
+    radial-gradient(ellipse 54% 66% at 88% 66%, oklch(0.35 0.03 258 / 0.52), transparent 72%),
+    linear-gradient(90deg, var(--background) 0%, var(--background) 28%, transparent 76%);
+}
+
+@utility hero-stage {
+  isolation: isolate;
+  background:
+    linear-gradient(90deg, var(--background) 0%, var(--background) 25%, transparent 72%),
+    radial-gradient(ellipse 42% 90% at 96% 70%, oklch(0.25 0.035 258 / 0.42), transparent 72%);
+}
+
+@utility hero-content {
+  pointer-events: none;
+
+  & a {
+    pointer-events: auto;
+  }
+}
+
+@utility hero-heading {
+  position: relative;
+  z-index: 3;
+  text-wrap: balance;
+}
+
+@keyframes hero-word-in {
+  from {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility hero-word {
+  animation: hero-word-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility hero-word-1 {
+  animation-delay: 130ms;
+}
+
+@utility hero-word-2 {
+  animation-delay: 260ms;
+}
+
+@utility hero-word-3 {
+  animation-delay: 390ms;
+}
+
+@utility hero-portrait-stage {
+  filter: drop-shadow(0 42px 38px oklch(0 0 0 / 0.6));
+}
+
+@utility hero-portrait-mask {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      var(--background),
+      transparent 34%,
+      transparent 68%,
+      oklch(0 0 0 / 0.25)
+    );
+    content: "";
+  }
+}
+
+@utility hero-portrait {
+  filter: contrast(1.04) saturate(0.94);
 }
 
 @utility apex-section {
@@ -238,7 +314,27 @@
       color-mix(in oklab, var(--electric) 11%, transparent),
       transparent 66%
     ),
-    oklch(0.129 0.02 262.9);
+    linear-gradient(115deg, oklch(0.105 0.026 260), oklch(0.15 0.045 258) 50%, oklch(0.09 0.02 258));
+}
+
+@utility apex-collage {
+  filter: drop-shadow(0 32px 60px oklch(0 0 0 / 0.48));
+}
+
+@utility apex-poster {
+  transform: rotate(-2.5deg);
+}
+
+@utility apex-live {
+  box-shadow:
+    0 28px 64px -30px oklch(0 0 0 / 0.95),
+    0 0 64px -20px color-mix(in oklab, var(--electric) 74%, transparent);
+  transform: rotate(2.5deg);
+}
+
+@utility apex-title {
+  text-wrap: balance;
+  text-shadow: 0 0 40px color-mix(in oklab, var(--electric) 24%, transparent);
 }
 
 @utility poster-glow {
@@ -246,6 +342,153 @@
     0 0 0 1px oklch(1 0 0 / 8%),
     0 30px 80px -30px oklch(0 0 0 / 0.9),
     0 0 90px -18px color-mix(in oklab, var(--electric) 45%, transparent);
+}
+
+/* ---------- Editorial chapters ---------- */
+
+@utility practice-chapter {
+  position: relative;
+}
+
+@utility practice-image {
+  box-shadow: 0 30px 80px -44px oklch(0 0 0 / 0.95);
+
+  &::after {
+    position: absolute;
+    inset: 0;
+    border: 1px solid oklch(1 0 0 / 12%);
+    content: "";
+    pointer-events: none;
+  }
+}
+
+@utility practice-image-title {
+  position: absolute;
+  right: 5%;
+  bottom: 4%;
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 8vw, 8.5rem);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.07em;
+  text-transform: uppercase;
+  color: oklch(1 0 0 / 0.88);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+@utility practice-copy {
+  position: relative;
+  z-index: 2;
+}
+
+@utility market-pause {
+  background: linear-gradient(180deg, transparent, oklch(0.14 0.014 258 / 0.58), transparent);
+}
+
+@utility market-frame {
+  box-shadow: 0 30px 90px -56px oklch(0 0 0 / 0.95);
+}
+
+@utility community-frame {
+  box-shadow: 0 30px 80px -48px oklch(0 0 0 / 0.9);
+}
+
+@utility garden-stage {
+  box-shadow:
+    inset 0 0 0 1px oklch(1 0 0 / 9%),
+    0 30px 70px -48px oklch(0 0 0 / 0.9);
+}
+
+@utility garden-overlay {
+  background:
+    linear-gradient(0deg, var(--background) 2%, transparent 68%),
+    linear-gradient(90deg, var(--background) 0%, oklch(0.08 0.01 258 / 0.52) 31%, transparent 82%);
+}
+
+@utility content-destination {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--electric);
+    content: "";
+    transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  &:hover {
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--electric) 8%, transparent),
+      transparent 55%
+    );
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+
+  &:hover .content-arrow svg {
+    transform: translate(4px, -4px);
+  }
+}
+
+@utility content-arrow {
+  & svg {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@utility final-cta {
+  background: oklch(0.09 0.016 258);
+}
+
+@utility final-overlay {
+  background:
+    radial-gradient(
+      ellipse 52% 70% at 78% 50%,
+      color-mix(in oklab, var(--electric) 16%, transparent),
+      transparent 72%
+    ),
+    linear-gradient(
+      90deg,
+      var(--background) 0%,
+      oklch(0.07 0.012 258 / 0.9) 42%,
+      oklch(0.02 0 0 / 0.2)
+    );
+}
+
+@utility final-path {
+  position: relative;
+
+  &::before {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--electric);
+    content: "";
+    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  &:hover::before {
+    width: 100%;
+  }
+
+  &:hover .final-path-arrow svg {
+    transform: translate(4px, -4px);
+  }
+}
+
+@utility final-path-arrow {
+  & svg {
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
 }
 
 /* ---------- Book chapter ---------- */
@@ -313,6 +556,7 @@
       color-mix(in oklab, var(--electric) 12%, transparent)
     );
     content: "";
+    transform-origin: top;
   }
 
   @media (min-width: 768px) {
@@ -335,6 +579,7 @@
         var(--electric),
         color-mix(in oklab, var(--electric) 14%, transparent)
       );
+      transform-origin: left;
     }
   }
 }
@@ -342,6 +587,9 @@
 @utility evolution-step {
   position: relative;
   min-height: 4.25rem;
+  transition:
+    opacity 0.45s ease,
+    filter 0.45s ease;
 }
 
 @utility evolution-index {
@@ -370,6 +618,126 @@
   @media (min-width: 768px) {
     top: -2.1rem;
     left: 0;
+  }
+}
+
+@keyframes evolution-progress-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes evolution-progress-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes editorial-drift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-2.5%);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .evolution-track::before {
+    animation: evolution-progress-y linear both;
+    animation-range: entry 8% cover 76%;
+    animation-timeline: view();
+  }
+
+  @media (min-width: 768px) {
+    .evolution-track::before {
+      animation-name: evolution-progress-x;
+    }
+  }
+
+  .evolution-step {
+    animation: evolution-step-focus linear both;
+    animation-range: entry 8% cover 62%;
+    animation-timeline: view();
+  }
+
+  .apex-collage,
+  .community-frame,
+  .market-frame {
+    animation: editorial-drift linear both;
+    animation-range: entry 0% exit 100%;
+    animation-timeline: view();
+  }
+}
+
+@keyframes evolution-step-focus {
+  0%,
+  20% {
+    filter: grayscale(1);
+    opacity: 0.42;
+  }
+  58%,
+  100% {
+    filter: grayscale(0);
+    opacity: 1;
+  }
+}
+
+@media (min-width: 1024px) {
+  .practice-chapter:not(.practice-chapter-reverse) .practice-copy {
+    margin-left: -7vw;
+    padding: 2rem 0 2rem 2rem;
+  }
+
+  .practice-chapter-reverse .practice-copy {
+    margin-right: -7vw;
+    padding: 2rem 2rem 2rem 0;
+  }
+
+  .practice-chapter-reverse .practice-image-title {
+    right: auto;
+    left: 5%;
+  }
+}
+
+@media (max-width: 639px) {
+  .hero-stage {
+    min-height: 100svh;
+  }
+
+  .hero-heading {
+    letter-spacing: -0.065em;
+  }
+
+  .practice-image-title {
+    font-size: clamp(3.2rem, 16vw, 5rem);
+  }
+
+  .market-frame {
+    margin-inline: 0;
+  }
+
+  .community-frame {
+    margin-inline: -1.5rem;
+  }
+
+  .community-frame img {
+    min-height: 21rem;
+  }
+
+  .final-overlay {
+    background: linear-gradient(
+      180deg,
+      var(--background) 0%,
+      oklch(0.07 0.012 258 / 0.82) 60%,
+      oklch(0.02 0 0 / 0.36)
+    );
   }
 }
 
@@ -413,6 +781,12 @@
 
   .scroll-hint-line {
     animation: none !important;
+  }
+
+  .hero-word {
+    clip-path: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   *,

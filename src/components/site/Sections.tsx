@@ -50,7 +50,7 @@ const EVOLUTION = ["Técnica", "Posicionamento", "Educação", "Negócios", "Leg
 
 export function Trajetoria() {
   return (
-    <section id="trajetoria" className="relative scroll-mt-24 py-28 md:py-40">
+    <section id="trajetoria" className="trajectory-section relative scroll-mt-24 py-24 md:py-32">
       <div className="mx-auto w-full max-w-6xl px-6">
         <Reveal>
           <Label>Trajetória</Label>
@@ -69,7 +69,7 @@ export function Trajetoria() {
           </p>
         </Reveal>
         <ol
-          className="evolution-track mt-16 md:mt-20"
+          className="evolution-track mt-14 md:mt-16"
           aria-label="Evolução profissional: técnica, posicionamento, educação, negócios e legado"
         >
           {EVOLUTION.map((step, index) => (
@@ -116,11 +116,11 @@ function PracticeBlock({
 }: PracticeBlockProps) {
   return (
     <article
-      className={`grid items-center gap-9 border-t border-border py-14 md:gap-14 md:py-20 lg:grid-cols-12 ${reverse ? "lg:[&>div:first-child]:order-2" : ""}`}
+      className={`practice-chapter grid items-center gap-9 border-t border-border py-14 md:gap-14 md:py-20 lg:grid-cols-12 ${reverse ? "practice-chapter-reverse lg:[&>div:first-child]:order-2" : ""}`}
     >
-      <Reveal className="lg:col-span-7">
+      <Reveal className="lg:col-span-8">
         <div
-          className={`group relative overflow-hidden ${reverse ? "aspect-[4/3]" : "aspect-[4/5] max-h-[46rem]"}`}
+          className={`practice-image group relative overflow-hidden ${reverse ? "aspect-[5/4]" : "aspect-[4/5] max-h-[49rem]"}`}
         >
           <img
             src={image}
@@ -133,9 +133,12 @@ function PracticeBlock({
             className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/35 via-transparent to-transparent"
             aria-hidden="true"
           />
+          <span className="practice-image-title" aria-hidden="true">
+            {title}
+          </span>
         </div>
       </Reveal>
-      <div className="lg:col-span-5">
+      <div className="practice-copy lg:col-span-4">
         <Reveal delay={120}>
           <div className="flex items-center gap-4">
             <span className="font-display text-sm font-bold text-electric">{number}</span>
@@ -146,7 +149,7 @@ function PracticeBlock({
           </div>
         </Reveal>
         <Reveal delay={180}>
-          <h3 className="mt-7 font-display text-3xl font-bold uppercase tracking-tight text-foreground md:text-4xl">
+          <h3 className="mt-7 font-display text-[clamp(2.45rem,4.4vw,5.2rem)] font-bold uppercase leading-[0.9] tracking-[-0.05em] text-foreground">
             {title}
           </h3>
         </Reveal>
@@ -201,16 +204,16 @@ export function BarbeiroEducador() {
 
 export function MarketPause() {
   return (
-    <section className="relative overflow-hidden py-16 md:py-24">
-      <div className="mx-auto w-full max-w-[88rem] px-4 md:px-6">
+    <section className="market-pause relative overflow-hidden py-14 md:py-24">
+      <div className="mx-auto w-full max-w-[96rem] px-0 md:px-8">
         <Reveal>
-          <figure className="relative overflow-hidden border border-border bg-card">
+          <figure className="market-frame relative overflow-hidden bg-card">
             <img
               src={professionalsPhoto}
               alt="Stefano Chaves conversando com outros profissionais da barbearia"
               loading="lazy"
               decoding="async"
-              className="aspect-[5/4] w-full object-cover object-center sm:aspect-[16/8]"
+              className="aspect-[5/4] w-full object-cover object-center sm:aspect-[16/7] sm:object-[center_44%]"
             />
             <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/75 to-transparent px-6 pb-7 pt-24 font-display text-lg font-bold uppercase leading-tight tracking-tight text-foreground sm:px-10 sm:text-2xl md:max-w-3xl md:pb-10">
               Evoluir também é estar entre quem move o mercado.
@@ -237,10 +240,10 @@ export function Apex() {
       id="apex"
       className="apex-section relative scroll-mt-24 overflow-hidden py-28 md:py-40"
     >
-      <div className="mx-auto grid w-full max-w-7xl items-center gap-14 px-6 lg:grid-cols-2 lg:gap-20">
+      <div className="mx-auto grid w-full max-w-[88rem] items-center gap-14 px-6 lg:grid-cols-[1.15fr_.85fr] lg:gap-16">
         <Reveal>
-          <div className="apex-collage relative mx-auto max-w-xl pb-[19%] pr-[10%]">
-            <div className="poster-glow relative overflow-hidden">
+          <div className="apex-collage relative mx-auto max-w-2xl pb-[16%] pr-[12%]">
+            <div className="apex-poster poster-glow relative overflow-hidden">
               <img
                 src={apexArt}
                 alt="Arte oficial do Apex Barber Garden For Men"
@@ -249,7 +252,7 @@ export function Apex() {
                 className="aspect-[4/5] w-full object-cover"
               />
             </div>
-            <div className="absolute bottom-0 right-0 w-[68%] overflow-hidden border border-electric/35 shadow-2xl">
+            <div className="apex-live absolute bottom-0 right-0 w-[70%] overflow-hidden border border-electric/35 shadow-2xl">
               <img
                 src={apexPhoto}
                 alt="Stefano Chaves com profissionais durante a experiência Apex Barber"
@@ -265,7 +268,7 @@ export function Apex() {
             <Label>Apex Barber</Label>
           </Reveal>
           <Reveal delay={100}>
-            <h2 className={`${H2} mt-8`}>
+            <h2 className="apex-title mt-8 font-display text-[clamp(3rem,5.5vw,6.4rem)] font-bold uppercase leading-[0.86] tracking-[-0.06em] text-foreground">
               Bem-vindo
               <br />
               ao novo nível<span className="text-electric">.</span>
@@ -312,25 +315,25 @@ export function Apex() {
 
 export function Community() {
   return (
-    <section className="relative py-16 md:py-24">
-      <div className="mx-auto grid w-full max-w-7xl gap-8 px-6 lg:grid-cols-[1fr_1.45fr] lg:items-end">
+    <section className="community-section relative overflow-hidden py-16 md:py-28">
+      <div className="mx-auto grid w-full max-w-[88rem] gap-8 px-6 lg:grid-cols-[.65fr_1.65fr] lg:items-end">
         <Reveal>
           <div className="pb-5">
             <Label>Comunidade</Label>
-            <h2 className={`${H2} mt-7 max-w-xl text-[clamp(1.9rem,3.5vw,3.3rem)]`}>
+            <h2 className="mt-7 max-w-xl font-display text-[clamp(2.35rem,4.3vw,4.7rem)] font-bold uppercase leading-[0.94] tracking-[-0.045em] text-foreground">
               O conhecimento ganha valor quando continua circulando
               <span className="text-electric">.</span>
             </h2>
           </div>
         </Reveal>
         <Reveal delay={130}>
-          <div className="relative overflow-hidden border border-border">
+          <div className="community-frame relative overflow-hidden">
             <img
               src={communityPhoto}
               alt="Stefano Chaves com participantes de uma comunidade profissional"
               loading="lazy"
               decoding="async"
-              className="aspect-[5/4] w-full object-cover object-center md:aspect-[16/10]"
+              className="aspect-[5/4] w-full object-cover object-center md:aspect-[16/9]"
             />
             <div
               className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-transparent"
@@ -346,7 +349,7 @@ export function Community() {
 export function Garden() {
   return (
     <section className="relative scroll-mt-24 py-28 md:py-36">
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-6 lg:grid-cols-[1.2fr_.8fr] lg:gap-20">
+      <div className="mx-auto grid w-full max-w-7xl items-center gap-10 px-6 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
         <div>
           <Reveal>
             <Label>Ecossistema profissional</Label>
@@ -364,24 +367,24 @@ export function Garden() {
           </Reveal>
         </div>
         <Reveal delay={150}>
-          <div className="relative flex min-h-72 items-center justify-center overflow-hidden border border-border bg-card px-10 py-14">
+          <div className="garden-stage relative flex min-h-[24rem] items-end overflow-hidden bg-card px-8 py-8 md:min-h-[30rem] md:px-12 md:py-12">
             <img
               src={portraitPhoto}
               alt=""
               loading="lazy"
               decoding="async"
-              className="absolute inset-0 h-full w-full object-cover opacity-20 grayscale"
+              className="absolute inset-0 h-full w-full object-cover object-[center_18%] opacity-95 grayscale"
             />
-            <div className="absolute inset-0 bg-background/35" aria-hidden="true" />
-            <div className="relative text-center">
+            <div className="garden-overlay absolute inset-0" aria-hidden="true" />
+            <div className="relative max-w-[9rem] text-left">
               <img
                 src={gardenLogo}
                 alt="Logo Garden For Men"
                 loading="lazy"
                 decoding="async"
-                className="mx-auto w-full max-w-[11rem] object-contain"
+                className="w-full max-w-[8.5rem] object-contain"
               />
-              <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.28em] text-muted-foreground">
+              <p className="mt-5 text-[10px] font-bold uppercase tracking-[0.28em] text-foreground/75">
                 Garden For Men
               </p>
             </div>
@@ -506,33 +509,33 @@ const CHANNELS = [
 
 export function Conteudo() {
   return (
-    <section className="relative scroll-mt-24 py-28 md:py-40">
+    <section className="content-section relative scroll-mt-24 py-28 md:py-40">
       <div className="mx-auto w-full max-w-6xl px-6">
         <Reveal>
           <Label>Conteúdo</Label>
         </Reveal>
         <Reveal delay={100}>
-          <h2 className={`${H2} mt-8 max-w-4xl`}>
+          <h2 className="mt-8 max-w-5xl font-display text-[clamp(2.65rem,5.2vw,5.7rem)] font-bold uppercase leading-[0.91] tracking-[-0.055em] text-foreground">
             Conhecimento não fica
             <br />
             só na cadeira<span className="text-electric">.</span>
           </h2>
         </Reveal>
-        <div className="mt-14 border-y border-border">
+        <div className="content-destinations mt-14 border-y border-border">
           {CHANNELS.map((channel, index) => (
             <Reveal key={channel.label} delay={index * 120}>
               <a
                 href={channel.href}
                 {...EXTERNAL}
-                className="group grid gap-6 py-9 transition-colors hover:text-electric md:grid-cols-[.6fr_1.3fr_auto] md:items-center md:gap-10 md:py-12"
+                className="content-destination group grid gap-6 py-9 transition-colors md:grid-cols-[.6fr_1.3fr_auto] md:items-center md:gap-10 md:py-12"
               >
-                <span className="font-display text-3xl font-bold uppercase tracking-tight text-foreground transition-transform duration-300 group-hover:translate-x-2 group-hover:text-electric md:text-5xl">
+                <span className="font-display text-4xl font-bold uppercase tracking-[-0.05em] text-foreground transition-transform duration-500 group-hover:translate-x-3 group-hover:text-electric md:text-6xl">
                   {channel.label}
                 </span>
                 <span className="max-w-sm leading-relaxed text-muted-foreground">
                   {channel.text}
                 </span>
-                <span className="link-arrow w-fit">
+                <span className="content-arrow link-arrow w-fit">
                   {channel.cta}
                   <ArrowIcon />
                 </span>
@@ -565,20 +568,23 @@ const PATHS = [
 
 export function CtaFinal() {
   return (
-    <section id="contato" className="relative scroll-mt-24 overflow-hidden py-28 md:py-44">
+    <section
+      id="contato"
+      className="final-cta relative scroll-mt-24 overflow-hidden py-32 md:py-52"
+    >
       <div className="absolute inset-0" aria-hidden="true">
         <img
           src={heroPhoto}
           alt=""
           loading="lazy"
           decoding="async"
-          className="absolute inset-y-0 right-0 h-full w-full object-cover object-[70%_20%] opacity-30 grayscale lg:w-[60%]"
+          className="final-portrait absolute inset-y-0 right-0 h-full w-full object-cover object-[70%_20%] opacity-45 grayscale lg:w-[68%]"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/88 to-background/25" />
+        <div className="final-overlay absolute inset-0" />
       </div>
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
         <Reveal>
-          <h2 className={`${H2} max-w-3xl`}>
+          <h2 className="max-w-4xl font-display text-[clamp(3.1rem,7vw,7.4rem)] font-bold uppercase leading-[0.86] tracking-[-0.065em] text-foreground">
             Qual é o seu
             <br />
             próximo nível<span className="text-electric">?</span>
@@ -587,22 +593,22 @@ export function CtaFinal() {
         <Reveal delay={120}>
           <p className="mt-6 text-lg text-muted-foreground">Escolha por onde começar.</p>
         </Reveal>
-        <div className="mt-14 border-t border-border md:mt-16">
+        <div className="final-paths mt-14 border-t border-border md:mt-16">
           {PATHS.map((path, index) => (
             <Reveal key={path.title} delay={index * 110}>
               <a
                 href={LINKS.whatsapp}
                 {...EXTERNAL}
-                className="group grid gap-4 border-b border-border py-8 transition-colors hover:border-electric md:grid-cols-[3rem_1fr_1.3fr_auto] md:items-center md:gap-7 md:py-10"
+                className="final-path group grid gap-4 border-b border-border py-8 transition-colors md:grid-cols-[3rem_1fr_1.3fr_auto] md:items-center md:gap-7 md:py-10"
               >
                 <span className="font-display text-sm font-bold text-electric">0{index + 1}</span>
-                <h3 className="font-display text-xl font-bold uppercase leading-tight tracking-tight text-foreground transition-colors group-hover:text-electric md:text-2xl">
+                <h3 className="font-display text-2xl font-bold uppercase leading-tight tracking-[-0.035em] text-foreground transition-colors group-hover:text-electric md:text-3xl">
                   {path.title}
                 </h3>
                 <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
                   {path.text}
                 </p>
-                <span className="link-arrow w-fit">
+                <span className="final-path-arrow link-arrow w-fit">
                   {path.cta}
                   <ArrowIcon />
                 </span>
