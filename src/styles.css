@@ -44,6 +44,10 @@
 }
 
 :root {
+  --motion-fast: 0.2s;
+  --motion-normal: 0.45s;
+  --motion-slow: 0.58s;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --radius: 0.625rem;
   --background: oklch(0.115 0 89.9); /* #050505 */
   --foreground: oklch(0.97 0.003 106.4); /* #F5F5F3 */
@@ -98,16 +102,40 @@
 /* ---------- Reveal on scroll ---------- */
 
 @utility reveal {
-  opacity: 0;
-  transform: translateY(26px);
+  opacity: 1;
   transition:
-    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity var(--motion-slow, 0.7s) cubic-bezier(0.22, 1, 0.36, 1),
+    transform var(--motion-slow, 0.7s) cubic-bezier(0.22, 1, 0.36, 1),
+    clip-path var(--motion-slow, 0.7s) cubic-bezier(0.22, 1, 0.36, 1);
   will-change: opacity, transform;
+
+  &.is-motion-pending {
+    opacity: 0;
+    transform: translateY(26px);
+  }
 
   &.is-visible {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@utility reveal-clip {
+  &.is-motion-pending {
+    /* Fotos continuam legíveis mesmo se o trigger for pulado. */
+    opacity: 1;
+    clip-path: inset(0 0 14% 0);
+    transform: translateY(8px);
+  }
+
+  &.is-visible {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@utility reveal-fade {
+  &.is-motion-pending {
+    transform: none;
   }
 }
 
@@ -227,6 +255,53 @@
     linear-gradient(90deg, var(--background) 0%, var(--background) 28%, transparent 76%);
 }
 
+.scramble-text {
+  display: inline-grid;
+}
+
+.scramble-reserve,
+.scramble-output {
+  grid-area: 1 / 1;
+}
+
+.scramble-reserve {
+  visibility: hidden;
+}
+
+@keyframes hero-atmosphere {
+  0%,
+  100% {
+    opacity: 0.82;
+    transform: translate3d(-0.5%, 0, 0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate3d(0.75%, -0.5%, 0) scale(1.025);
+  }
+}
+
+@keyframes hero-accent-pulse {
+  0%,
+  100% {
+    opacity: 0.68;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes hero-portrait-idle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
 @utility hero-stage {
   isolation: isolate;
   background:
@@ -246,6 +321,9 @@
   position: relative;
   z-index: 3;
   text-wrap: balance;
+  opacity: calc(1 - var(--hero-scroll, 0) * 0.35);
+  transform: translateY(calc(var(--hero-scroll, 0) * -7vh));
+  will-change: transform, opacity;
 }
 
 @keyframes hero-word-in {
@@ -279,6 +357,8 @@
 
 @utility hero-portrait-stage {
   filter: drop-shadow(0 42px 38px oklch(0 0 0 / 0.6));
+  transform: translateY(calc(var(--hero-scroll, 0) * -2.5vh));
+  will-change: transform;
 }
 
 @utility hero-portrait-mask {
@@ -300,6 +380,44 @@
 
 @utility hero-portrait {
   filter: contrast(1.04) saturate(0.94);
+}
+
+@utility hero-description {
+  opacity: calc(1 - var(--hero-scroll, 0) * 0.55);
+  transform: translateY(calc(var(--hero-scroll, 0) * -3vh));
+  will-change: transform, opacity;
+}
+
+@utility hero-actions {
+  opacity: calc(1 - var(--hero-scroll, 0) * 0.7);
+  transform: translateY(calc(var(--hero-scroll, 0) * -5vh));
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-glow {
+    animation: hero-atmosphere 11s ease-in-out infinite;
+    will-change: transform, opacity;
+  }
+
+  .hero-accent {
+    display: inline-block;
+    animation: hero-accent-pulse 3.6s ease-in-out infinite;
+    transform-origin: center;
+  }
+
+  .hero-accent-2 {
+    animation-delay: 0.35s;
+  }
+
+  .hero-accent-3 {
+    animation-delay: 0.7s;
+  }
+
+  .hero-portrait-mask {
+    animation: hero-portrait-idle 8s ease-in-out infinite;
+    will-change: transform;
+  }
 }
 
 @utility apex-section {
@@ -491,6 +609,157 @@
   }
 }
 
+@keyframes apex-atmosphere {
+  0%,
+  100% {
+    opacity: 0.38;
+    transform: translate3d(-2%, -1%, 0) scale(0.98);
+  }
+  50% {
+    opacity: 0.72;
+    transform: translate3d(2%, 1%, 0) scale(1.04);
+  }
+}
+
+@utility apex-section {
+  &::before {
+    position: absolute;
+    inset: -20%;
+    background: radial-gradient(
+      circle at 62% 40%,
+      color-mix(in oklab, var(--electric) 26%, transparent),
+      transparent 42%
+    );
+    content: "";
+    opacity: calc(0.32 + var(--apex-progress, 0) * 0.42);
+    pointer-events: none;
+    will-change: transform, opacity;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .apex-section::before {
+    animation: apex-atmosphere 12s ease-in-out infinite;
+  }
+}
+
+.apex-poster {
+  transform: translateY(calc(var(--apex-progress, 0) * -2.5vh)) rotate(-2.5deg);
+  will-change: transform;
+}
+
+.apex-live {
+  transform: translateY(calc(var(--apex-progress, 0) * 2vh)) rotate(2.5deg);
+  will-change: transform;
+}
+
+@keyframes apex-pillar-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal.is-visible .apex-pillar {
+    animation: apex-pillar-in var(--motion-normal) var(--motion-ease) both;
+  }
+}
+
+.reveal.is-motion-pending .practice-image,
+.reveal.is-motion-pending .market-frame,
+.reveal.is-motion-pending .community-frame,
+.reveal.is-motion-pending .book-photo-frame {
+  clip-path: inset(0 0 14% 0);
+}
+
+/* A máscara é decorativa: imagens nunca ficam ocultas à espera de JavaScript. */
+.reveal.reveal-clip.is-motion-pending {
+  opacity: 1;
+  clip-path: inset(0 0 14% 0);
+  transform: translateY(8px);
+}
+
+.practice-image,
+.market-frame,
+.community-frame,
+.book-photo-frame {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path var(--motion-slow) var(--motion-ease);
+}
+
+.market-frame img,
+.community-frame img {
+  transform: scale(1.06);
+  transition: transform 1s var(--motion-ease);
+}
+
+.reveal.is-visible .market-frame img,
+.reveal.is-visible .community-frame img {
+  transform: scale(1);
+}
+
+.community-title > span {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal.is-visible .community-title > span {
+    animation: community-line-in var(--motion-normal) var(--motion-ease) both;
+  }
+
+  .reveal.is-visible .community-title > span:nth-child(2) {
+    animation-delay: 90ms;
+  }
+
+  .reveal.is-visible .community-title > span:nth-child(3) {
+    animation-delay: 180ms;
+  }
+
+  .reveal.is-visible .community-title > span:nth-child(4) {
+    animation-delay: 270ms;
+  }
+
+  .reveal.is-visible .community-title > span:nth-child(5) {
+    animation-delay: 360ms;
+  }
+}
+
+@keyframes community-line-in {
+  from {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.final-portrait {
+  transform: translateY(calc(var(--final-progress, 0) * -2vh))
+    scale(calc(1 + var(--final-progress, 0) * 0.025));
+  will-change: transform;
+}
+
+@media (hover: none) {
+  a.btn-primary:active,
+  a.btn-outline:active,
+  a.btn-electric:active,
+  a.book-cta:active,
+  .content-destination:active,
+  .final-path:active {
+    opacity: 0.88;
+    transform: scale(0.985);
+  }
+}
+
 /* ---------- Book chapter ---------- */
 
 @utility book-section {
@@ -556,7 +825,9 @@
       color-mix(in oklab, var(--electric) 12%, transparent)
     );
     content: "";
+    transform: scaleY(var(--trajectory-progress, 1));
     transform-origin: top;
+    will-change: transform;
   }
 
   @media (min-width: 768px) {
@@ -579,6 +850,7 @@
         var(--electric),
         color-mix(in oklab, var(--electric) 14%, transparent)
       );
+      transform: scaleX(var(--trajectory-progress, 1));
       transform-origin: left;
     }
   }
@@ -590,6 +862,33 @@
   transition:
     opacity 0.45s ease,
     filter 0.45s ease;
+
+  & .evolution-index,
+  & .evolution-dot,
+  & .reveal > span:last-child {
+    transition:
+      color var(--motion-normal) var(--motion-ease),
+      transform var(--motion-normal) var(--motion-ease),
+      opacity var(--motion-normal) var(--motion-ease),
+      box-shadow var(--motion-normal) var(--motion-ease);
+  }
+
+  &.is-active .evolution-index,
+  &.is-active .reveal > span:last-child {
+    color: var(--electric-soft);
+    transform: scale(1.035);
+  }
+
+  &.is-active .evolution-dot {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--electric) 85%, transparent),
+      0 0 24px -3px var(--electric);
+    transform: scale(1.18);
+  }
+
+  &.is-passed .reveal > span:last-child {
+    color: var(--foreground);
+  }
 }
 
 @utility evolution-index {
@@ -649,24 +948,6 @@
 }
 
 @supports (animation-timeline: view()) {
-  .evolution-track::before {
-    animation: evolution-progress-y linear both;
-    animation-range: entry 8% cover 76%;
-    animation-timeline: view();
-  }
-
-  @media (min-width: 768px) {
-    .evolution-track::before {
-      animation-name: evolution-progress-x;
-    }
-  }
-
-  .evolution-step {
-    animation: evolution-step-focus linear both;
-    animation-range: entry 8% cover 62%;
-    animation-timeline: view();
-  }
-
   .apex-collage,
   .community-frame,
   .market-frame {
@@ -707,6 +988,11 @@
 }
 
 @media (max-width: 639px) {
+  :root {
+    --motion-normal: 0.36s;
+    --motion-slow: 0.5s;
+  }
+
   .hero-stage {
     min-height: 100svh;
   }
@@ -776,7 +1062,15 @@
   .reveal {
     opacity: 1 !important;
     transform: none !important;
+    clip-path: none !important;
     transition: none !important;
+  }
+
+  .practice-image,
+  .market-frame,
+  .community-frame,
+  .book-photo-frame {
+    clip-path: none !important;
   }
 
   .scroll-hint-line {

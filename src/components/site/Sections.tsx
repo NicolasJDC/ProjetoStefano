@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import {
   apexArt,
   apexPhoto,
@@ -12,7 +13,9 @@ import {
   teachingPhoto,
 } from "@/assets/media";
 import { EXTERNAL, LINKS } from "@/lib/links";
+import { ScrambleText } from "./Motion";
 import { Reveal } from "./Reveal";
+import { useScrollMotion } from "./scroll-motion";
 
 function Label({ children }: { children: string }) {
   return (
@@ -49,17 +52,28 @@ const H2 =
 const EVOLUTION = ["Técnica", "Posicionamento", "Educação", "Negócios", "Legado"];
 
 export function Trajetoria() {
+  const trajectoryRef = useRef<HTMLElement>(null);
+  useScrollMotion(trajectoryRef, {
+    variable: "--trajectory-progress",
+    stepSelector: "[data-evolution-step]",
+  });
+
   return (
-    <section id="trajetoria" className="trajectory-section relative scroll-mt-24 py-24 md:py-32">
+    <section
+      ref={trajectoryRef}
+      id="trajetoria"
+      className="trajectory-section relative scroll-mt-24 py-24 md:py-32"
+    >
       <div className="mx-auto w-full max-w-6xl px-6">
         <Reveal>
           <Label>Trajetória</Label>
         </Reveal>
         <Reveal delay={100}>
           <h2 className={`${H2} mt-8 max-w-4xl`}>
-            Antes do palco,
+            <ScrambleText text="Antes do palco," delay={80} />
             <br />
-            veio a cadeira<span className="text-electric">.</span>
+            <ScrambleText text="veio a cadeira" delay={190} />
+            <span className="text-electric">.</span>
           </h2>
         </Reveal>
         <Reveal delay={200}>
@@ -73,7 +87,7 @@ export function Trajetoria() {
           aria-label="Evolução profissional: técnica, posicionamento, educação, negócios e legado"
         >
           {EVOLUTION.map((step, index) => (
-            <li key={step} className="evolution-step">
+            <li key={step} className="evolution-step" data-evolution-step>
               <Reveal delay={index * 130} className="h-full">
                 <span className="evolution-index">0{index + 1}</span>
                 <span className="evolution-dot" aria-hidden="true" />
@@ -118,14 +132,14 @@ function PracticeBlock({
     <article
       className={`practice-chapter grid items-center gap-9 border-t border-border py-14 md:gap-14 md:py-20 lg:grid-cols-12 ${reverse ? "practice-chapter-reverse lg:[&>div:first-child]:order-2" : ""}`}
     >
-      <Reveal className="lg:col-span-8">
+      <Reveal variant="clip" className="lg:col-span-8">
         <div
           className={`practice-image group relative overflow-hidden ${reverse ? "aspect-[5/4]" : "aspect-[4/5] max-h-[49rem]"}`}
         >
           <img
             src={image}
             alt={imageAlt}
-            loading="lazy"
+            loading="eager"
             decoding="async"
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
           />
@@ -206,7 +220,7 @@ export function MarketPause() {
   return (
     <section className="market-pause relative overflow-hidden py-14 md:py-24">
       <div className="mx-auto w-full max-w-[96rem] px-0 md:px-8">
-        <Reveal>
+        <Reveal variant="clip">
           <figure className="market-frame relative overflow-hidden bg-card">
             <img
               src={professionalsPhoto}
@@ -235,19 +249,23 @@ const APEX_PILLARS = [
 ];
 
 export function Apex() {
+  const apexRef = useRef<HTMLElement>(null);
+  useScrollMotion(apexRef, { variable: "--apex-progress" });
+
   return (
     <section
+      ref={apexRef}
       id="apex"
       className="apex-section relative scroll-mt-24 overflow-hidden py-28 md:py-40"
     >
       <div className="mx-auto grid w-full max-w-[88rem] items-center gap-14 px-6 lg:grid-cols-[1.15fr_.85fr] lg:gap-16">
-        <Reveal>
+        <Reveal variant="clip">
           <div className="apex-collage relative mx-auto max-w-2xl pb-[16%] pr-[12%]">
             <div className="apex-poster poster-glow relative overflow-hidden">
               <img
                 src={apexArt}
                 alt="Arte oficial do Apex Barber Garden For Men"
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 className="aspect-[4/5] w-full object-cover"
               />
@@ -256,7 +274,7 @@ export function Apex() {
               <img
                 src={apexPhoto}
                 alt="Stefano Chaves com profissionais durante a experiência Apex Barber"
-                loading="lazy"
+                loading="eager"
                 decoding="async"
                 className="aspect-[4/3] w-full object-cover"
               />
@@ -269,9 +287,10 @@ export function Apex() {
           </Reveal>
           <Reveal delay={100}>
             <h2 className="apex-title mt-8 font-display text-[clamp(3rem,5.5vw,6.4rem)] font-bold uppercase leading-[0.86] tracking-[-0.06em] text-foreground">
-              Bem-vindo
+              <ScrambleText text="Bem-vindo" delay={90} />
               <br />
-              ao novo nível<span className="text-electric">.</span>
+              <ScrambleText text="ao novo nível" delay={210} />
+              <span className="text-electric">.</span>
             </h2>
           </Reveal>
           <Reveal delay={180}>
@@ -286,11 +305,12 @@ export function Apex() {
             </p>
           </Reveal>
           <Reveal delay={300}>
-            <ul className="mt-9 flex flex-wrap gap-2.5">
-              {APEX_PILLARS.map((pillar) => (
+            <ul className="apex-pillars mt-9 flex flex-wrap gap-2.5">
+              {APEX_PILLARS.map((pillar, index) => (
                 <li
                   key={pillar}
-                  className="rounded-full border border-border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground transition-colors duration-300 hover:border-electric hover:text-foreground"
+                  className="apex-pillar rounded-full border border-border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground transition-colors duration-300 hover:border-electric hover:text-foreground"
+                  style={{ animationDelay: `${index * 70}ms` }}
                 >
                   {pillar}
                 </li>
@@ -320,13 +340,18 @@ export function Community() {
         <Reveal>
           <div className="pb-5">
             <Label>Comunidade</Label>
-            <h2 className="mt-7 max-w-xl font-display text-[clamp(2.35rem,4.3vw,4.7rem)] font-bold uppercase leading-[0.94] tracking-[-0.045em] text-foreground">
-              O conhecimento ganha valor quando continua circulando
-              <span className="text-electric">.</span>
+            <h2 className="community-title mt-7 max-w-xl font-display text-[clamp(2.35rem,4.3vw,4.7rem)] font-bold uppercase leading-[0.94] tracking-[-0.045em] text-foreground">
+              <span>O conhecimento</span>
+              <span>ganha valor</span>
+              <span>quando</span>
+              <span>continua</span>
+              <span>
+                circulando<span className="text-electric">.</span>
+              </span>
             </h2>
           </div>
         </Reveal>
-        <Reveal delay={130}>
+        <Reveal variant="clip" delay={130}>
           <div className="community-frame relative overflow-hidden">
             <img
               src={communityPhoto}
@@ -366,7 +391,7 @@ export function Garden() {
             </p>
           </Reveal>
         </div>
-        <Reveal delay={150}>
+        <Reveal variant="fade" delay={150}>
           <div className="garden-stage relative flex min-h-[24rem] items-end overflow-hidden bg-card px-8 py-8 md:min-h-[30rem] md:px-12 md:py-12">
             <img
               src={portraitPhoto}
@@ -414,7 +439,7 @@ export function Livro() {
         />
       </div>
       <div className="relative mx-auto grid w-full max-w-7xl items-center gap-12 px-6 lg:grid-cols-12 lg:gap-16">
-        <Reveal className="lg:col-span-7">
+        <Reveal variant="clip" className="lg:col-span-7">
           <figure className="book-photo-frame relative overflow-hidden">
             <img
               src={bookPhoto}
@@ -567,8 +592,12 @@ const PATHS = [
 ];
 
 export function CtaFinal() {
+  const finalRef = useRef<HTMLElement>(null);
+  useScrollMotion(finalRef, { variable: "--final-progress" });
+
   return (
     <section
+      ref={finalRef}
       id="contato"
       className="final-cta relative scroll-mt-24 overflow-hidden py-32 md:py-52"
     >
@@ -585,9 +614,10 @@ export function CtaFinal() {
       <div className="relative z-10 mx-auto w-full max-w-6xl px-6">
         <Reveal>
           <h2 className="max-w-4xl font-display text-[clamp(3.1rem,7vw,7.4rem)] font-bold uppercase leading-[0.86] tracking-[-0.065em] text-foreground">
-            Qual é o seu
+            <ScrambleText text="Qual é o seu" delay={80} />
             <br />
-            próximo nível<span className="text-electric">?</span>
+            <ScrambleText text="próximo nível" delay={210} />
+            <span className="text-electric">?</span>
           </h2>
         </Reveal>
         <Reveal delay={120}>

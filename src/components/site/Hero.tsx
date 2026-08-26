@@ -1,10 +1,20 @@
+import { useRef } from "react";
 import { heroPhoto } from "@/assets/media";
 import { EXTERNAL, LINKS } from "@/lib/links";
+import { ScrambleText } from "./Motion";
 import { Reveal } from "./Reveal";
+import { useScrollMotion } from "./scroll-motion";
 
 export function Hero() {
+  const heroRef = useRef<HTMLElement>(null);
+  useScrollMotion(heroRef, { variable: "--hero-scroll" });
+
   return (
-    <section id="inicio" className="hero-stage relative flex min-h-svh flex-col overflow-hidden">
+    <section
+      ref={heroRef}
+      id="inicio"
+      className="hero-stage relative flex min-h-svh flex-col overflow-hidden"
+    >
       <div className="hero-glow" aria-hidden="true" />
 
       {/* Texto */}
@@ -19,27 +29,30 @@ export function Hero() {
             </div>
           </Reveal>
 
-          <h1 className="hero-heading mt-7 font-display text-[clamp(3.25rem,8.5vw,7.85rem)] font-bold uppercase leading-[0.88] tracking-[-0.055em] text-foreground">
+          <h1 className="hero-heading mt-7 font-display text-[clamp(3.25rem,8.5vw,7.85rem)] font-bold uppercase leading-[0.88] tracking-[-0.055em] text-foreground lg:text-[clamp(4.5rem,5.6vw,6.2rem)]">
             <span className="hero-word hero-word-1 block">
-              Barbeiro<span className="text-electric">.</span>
+              <ScrambleText text="Barbeiro" delay={120} />
+              <span className="hero-accent hero-accent-1 text-electric">.</span>
             </span>
             <span className="hero-word hero-word-2 block">
-              Educador<span className="text-electric">.</span>
+              <ScrambleText text="Educador" delay={250} />
+              <span className="hero-accent hero-accent-2 text-electric">.</span>
             </span>
             <span className="hero-word hero-word-3 block">
-              Empreendedor<span className="text-electric">.</span>
+              <ScrambleText text="Empreendedor" delay={380} />
+              <span className="hero-accent hero-accent-3 text-electric">.</span>
             </span>
           </h1>
 
           <Reveal delay={240}>
-            <p className="mt-8 max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p className="hero-description mt-8 max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">
               Uma trajetória construída através da técnica, do posicionamento e da decisão de nunca
               parar de evoluir.
             </p>
           </Reveal>
 
           <Reveal delay={360}>
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <div className="hero-actions mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a href="#trajetoria" className="btn-primary">
                 Conheça a trajetória
               </a>
@@ -57,6 +70,9 @@ export function Hero() {
           <img
             src={heroPhoto}
             alt="Stefano Chaves — barbeiro, educador e empreendedor, de blazer preto e óculos escuros"
+            width={600}
+            height={800}
+            loading="eager"
             fetchPriority="high"
             decoding="async"
             className="hero-portrait h-auto max-h-[62svh] w-auto max-w-full object-contain object-bottom sm:max-h-[68svh] lg:h-[104svh] lg:max-h-none lg:max-w-none lg:translate-y-[4svh]"
